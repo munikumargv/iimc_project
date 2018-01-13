@@ -31,7 +31,8 @@ shinyUI(
                )
       ),
       tabPanel("Regression", "This panel is intentionally left blank"),
-      tabPanel("Clustering", "This panel is intentionally left blank")
+      tabPanel("Clustering", "This panel is intentionally left blank"),
+      tabPanel("Principal Component Analysis", "This panel is intentionally left blank")
     )
   )
 )
