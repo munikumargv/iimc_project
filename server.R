@@ -13,7 +13,7 @@ shinyServer(function(input, output) {
     paste(input$txt, input$slider, format(input$date), sep = ", ")
   })
   output$table <- renderTable({
-    head(cars, 4)
+    head(mtcars, 4)
   })
 }
 )
