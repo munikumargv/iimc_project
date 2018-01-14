@@ -53,7 +53,7 @@ shinyUI(
                                                      All = "all"),
                                          selected = "head")
                    ),
-                   tabPanel("Data Summary", "This panel is intentionally left blank"),
+                   tabPanel("Data Summary", tableOutput("contents")),
                    tabPanel("Logistic Regression", "This panel is intentionally left blank"),
                    tabPanel("Naive Bayes Classifier", "This panel is intentionally left blank"),
                    tabPanel("Neural Networks", "This panel is intentionally left blank"),
