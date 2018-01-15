@@ -16,7 +16,9 @@ shinyServer(function(input, output) {
     DT::datatable(df)
   })
   
-  output$summary <- renderTable({
+  output$summary <- renderPrint({
+    req(input$file1)
+    df <- read.csv(input$file1$datapath, sep = input$sep)
     summary(df)
   })
 }
