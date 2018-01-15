@@ -32,7 +32,7 @@ shinyUI(
                             tags$hr(),
                             
                             # Input: Select a file ----
-                            fileInput("file1", "Choose CSV File",
+                            fileInput("file1", h5("Choose CSV File"),
                                       multiple = TRUE,
                                       accept = c("text/csv",
                                                  "text/comma-separated-values,text/plain",
@@ -42,7 +42,7 @@ shinyUI(
                             tags$hr(),
                             
                             # Input: Select separator ----
-                            radioButtons("sep", "Separator",
+                            radioButtons("sep", h5("Separator"),
                                          choices = c(Comma = ",",
                                                      Semicolon = ";",
                                                      Tab = "\t"),
