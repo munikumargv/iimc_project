@@ -23,6 +23,14 @@ shinyUI(
                             # Horizontal line ----
                             tags$hr(),
                             
+                            radioButtons("radio", label = h5("Use example data or upload your data:"),
+                                         choices = list("Load Example dataset" = 1, 
+                                                        "Upload your dataset" = 2), 
+                                         selected = 1),
+                            
+                            # Horizontal line ----
+                            tags$hr(),
+                            
                             # Input: Select a file ----
                             fileInput("file1", "Choose CSV File",
                                       multiple = TRUE,
