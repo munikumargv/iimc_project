@@ -6,7 +6,9 @@
 #
 
 library(shiny)
+library(DT)
 library(shinythemes)
+
 shinyUI(
   tagList(
     shinythemes::themeSelector(),
@@ -42,18 +44,9 @@ shinyUI(
                                          choices = c(None = "",
                                                      "Double Quote" = '"',
                                                      "Single Quote" = "'"),
-                                         selected = '"'),
-                            
-                            # Horizontal line ----
-                            tags$hr(),
-                            
-                            # Input: Select number of rows to display ----
-                            radioButtons("disp", "Display",
-                                         choices = c(Head = "head",
-                                                     All = "all"),
-                                         selected = "head")
+                                         selected = '"')
                    ),
-                   tabPanel("Data Summary", tableOutput("contents")),
+                   tabPanel("Data Summary", DT::dataTableOutput("contents")),
                    tabPanel("Logistic Regression", "This panel is intentionally left blank"),
                    tabPanel("Naive Bayes Classifier", "This panel is intentionally left blank"),
                    tabPanel("Neural Networks", "This panel is intentionally left blank"),
