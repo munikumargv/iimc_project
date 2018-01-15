@@ -11,7 +11,7 @@ library(shinythemes)
 
 shinyUI(
   tagList(
-    #shinythemes::themeSelector(),
+    shinythemes::themeSelector(),
     navbarPage(
       theme = "yeti",  # <--- To use a theme, uncomment this
       "Prediction Machine",
@@ -19,6 +19,10 @@ shinyUI(
                mainPanel(
                  tabsetPanel(
                    tabPanel("Data Selector",
+                            
+                            # Horizontal line ----
+                            tags$hr(),
+                            
                             # Input: Select a file ----
                             fileInput("file1", "Choose CSV File",
                                       multiple = TRUE,
@@ -35,7 +39,9 @@ shinyUI(
                                                      Semicolon = ";",
                                                      Tab = "\t"),
                                          selected = ","),
+                            # Horizontal line ----
                             tags$hr(),
+                            
                             tabsetPanel(
                               tabPanel("Data Snapshot", DT::dataTableOutput("contents")),
                               tabPanel("Data Summary", "This panel is intentionally left blank")
