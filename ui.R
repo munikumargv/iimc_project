@@ -37,10 +37,10 @@ shinyUI(
                                          selected = ","),
                             tags$hr(),
                             tabsetPanel(
-                              tabPanel("Data Snapshot", DT::dataTableOutput("contents"))
+                              tabPanel("Data Snapshot", DT::dataTableOutput("contents")),
+                              tabPanel("Data Summary", "This panel is intentionally left blank")
                             )
                    ),
-                   #tabPanel("Data Summary", DT::dataTableOutput("contents")),
                    tabPanel("Logistic Regression", "This panel is intentionally left blank"),
                    tabPanel("Naive Bayes Classifier", "This panel is intentionally left blank"),
                    tabPanel("Neural Networks", "This panel is intentionally left blank"),
