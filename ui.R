@@ -28,7 +28,7 @@ shinyUI(
                             
                             # Horizontal line ----
                             tags$hr(),
-                            
+      
                             # Input: Checkbox if file has header ----
                             checkboxInput("header", "Header", TRUE),
                             
