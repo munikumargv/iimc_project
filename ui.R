@@ -44,7 +44,7 @@ shinyUI(
                             
                             tabsetPanel(
                               tabPanel("Data Snapshot", DT::dataTableOutput("contents")),
-                              tabPanel("Data Summary", "This panel is intentionally left blank")
+                              tabPanel("Data Summary", verbatimTextOutput("summary"))
                             )
                    ),
                    tabPanel("Logistic Regression", "This panel is intentionally left blank"),
