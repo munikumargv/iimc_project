@@ -28,23 +28,13 @@ shinyUI(
                             
                             # Horizontal line ----
                             tags$hr(),
-      
-                            # Input: Checkbox if file has header ----
-                            checkboxInput("header", "Header", TRUE),
                             
                             # Input: Select separator ----
                             radioButtons("sep", "Separator",
                                          choices = c(Comma = ",",
                                                      Semicolon = ";",
                                                      Tab = "\t"),
-                                         selected = ","),
-                            
-                            # Input: Select quotes ----
-                            radioButtons("quote", "Quote",
-                                         choices = c(None = "",
-                                                     "Double Quote" = '"',
-                                                     "Single Quote" = "'"),
-                                         selected = '"')
+                                         selected = ",")
                    ),
                    tabPanel("Data Summary", DT::dataTableOutput("contents")),
                    tabPanel("Logistic Regression", "This panel is intentionally left blank"),
