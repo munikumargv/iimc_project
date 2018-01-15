@@ -11,9 +11,9 @@ library(shinythemes)
 
 shinyUI(
   tagList(
-    shinythemes::themeSelector(),
+    #shinythemes::themeSelector(),
     navbarPage(
-      # theme = "cerulean",  # <--- To use a theme, uncomment this
+      theme = "yeti",  # <--- To use a theme, uncomment this
       "Prediction Machine",
       tabPanel("Classification",
                mainPanel(
