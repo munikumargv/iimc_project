@@ -9,6 +9,8 @@ library(shiny)
 library(DT)
 library(shinythemes)
 
+radioSelection <- textOutput("radioSelection")
+
 shinyUI(
   tagList(
     shinythemes::themeSelector(),
@@ -28,6 +30,9 @@ shinyUI(
                                                         "Upload your dataset" = 2), 
                                          selected = 1),
                             
+                            
+                            textOutput("radioSelection"),
+                            #uiOutput("ui"),
                             # Horizontal line ----
                             tags$hr(),
                             
