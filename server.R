@@ -7,10 +7,29 @@
 
 library(shiny)
 library(DT)
+source("chooser.R")
 
-shinyServer(function(input, output) {
-  
-  output$ui <- renderUI({"Apollo 13"})
+selectData <- function (input){
+  if(input$radio == 2){
+    req(input$file1)
+    df <- read.csv(input$file1$datapath, sep = input$sep)
+    df
+  }else{
+    mtcars
+  }
+}
+
+function(input, output) {
+  output$fields <- renderUI({
+    fluidPage(
+      # Horizontal line ----
+      tags$hr(),
+      chooserInput("mychooser", "Available frobs", "Selected frobs",
+                   names(selectData(input)), c(), size = 10, multiple = TRUE
+      ),
+      verbatimTextOutput("selection")
+    )
+  })
   
   output$contents <- DT::renderDataTable({
     if(input$radio == 2){
@@ -34,4 +53,4 @@ shinyServer(function(input, output) {
     }
   })
 }
-)
+
