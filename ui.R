@@ -8,6 +8,7 @@
 library(shiny)
 library(DT)
 library(shinythemes)
+source("chooser.R")
 
 radioSelection <- textOutput("radioSelection")
 
@@ -60,6 +61,7 @@ shinyUI(
                               tabPanel("Data Summary", verbatimTextOutput("summary"))
                             )
                    ),
+                   tabPanel("Model Configuration", uiOutput("fields")),
                    tabPanel("Logistic Regression", "This panel is intentionally left blank"),
                    tabPanel("Naive Bayes Classifier", "This panel is intentionally left blank"),
                    tabPanel("Neural Networks", "This panel is intentionally left blank"),
