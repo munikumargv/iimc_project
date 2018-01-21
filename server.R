@@ -36,7 +36,7 @@ function(input, output) {
   })
   
   output$summary <- renderPrint({
-  summary(selectData(input))
+    summary(selectData(input))
   })
 }
 
