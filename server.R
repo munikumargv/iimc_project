@@ -32,25 +32,11 @@ function(input, output) {
   })
   
   output$contents <- DT::renderDataTable({
-    if(input$radio == 2){
-      req(input$file1)
-      df <- read.csv(input$file1$datapath, sep = input$sep)
-      DT::datatable(df)
-    }
-    else{
-      DT::datatable(mtcars)
-    }
+      DT::datatable(selectData(input))
   })
   
   output$summary <- renderPrint({
-    if(input$radio == 2){
-    req(input$file1)
-    df <- read.csv(input$file1$datapath, sep = input$sep)
-    summary(df)
-    }
-    else{
-      summary(mtcars)
-    }
+  summary(selectData(input))
   })
 }
 
