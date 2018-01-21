@@ -24,7 +24,7 @@ shinyUI(
                    tabPanel("Data Selector",
                             
                             # Horizontal line ----
-                            tags$hr(),
+                            tags$br(),
                             
                             radioButtons("radio", label = h5("Use example data or upload your data:"),
                                          choices = list("Load Example dataset" = 1, 
