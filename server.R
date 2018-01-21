@@ -23,7 +23,8 @@ function(input, output) {
   output$fields <- renderUI({
     fluidPage(
       # Horizontal line ----
-      tags$hr(),
+      tags$br(),
+      h5("Choose Predictors:"),
       chooserInput("mychooser", "Available frobs", "Selected frobs",
                    names(selectData(input)), c(), size = 10, multiple = TRUE
       ),
