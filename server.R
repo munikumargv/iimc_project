@@ -7,6 +7,8 @@
 
 library(shiny)
 library(DT)
+library(mlbench)
+data(PimaIndiansDiabetes)
 source("chooser.R")
 
 selectData <- function (input){
@@ -15,7 +17,7 @@ selectData <- function (input){
     df <- read.csv(input$file1$datapath, sep = input$sep)
     df
   }else{
-    mtcars
+    PimaIndiansDiabetes
   }
 }
 
