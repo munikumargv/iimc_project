@@ -21,14 +21,21 @@ selectData <- function (input){
   }
 }
 
+#
+logisticRegressionModel <- function(input){
+  my.data <- selectData(input)
+  outcome <- renderPrint(input$in2)
+  #predictors <- renderPrint(input$mychooser)
+  logit.model <- glm(outcome ~ ., data = my.data, family = "binomial")
+  logit.model
+}
+
 function(input, output) {
   output$out2 <- renderPrint(input$in2)
   
   output$out3 <- renderPrint(input$in3)
   
-  output$selection <- renderPrint(
-    input$mychooser
-  )
+  output$selection <- renderPrint(input$mychooser)
   
   output$fields <- renderUI({
     fluidPage(
