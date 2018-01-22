@@ -83,7 +83,7 @@ function(input, output) {
                h4("Step 5"),
                h5("Run the Model(s):"),
                tags$br(),
-               actionButton("action", label = "Run Now!")
+               actionButton("action", label = "Run Now!", class = "btn-primary")
         )
       ),
       fluidRow(
