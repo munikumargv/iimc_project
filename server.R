@@ -22,7 +22,7 @@ selectData <- function (input){
 }
 
 #
-logisticRegressionModel <- function(input){
+logitModel <- function(input){
   my.data <- selectData(input)
   outcome <- renderPrint(input$in2)
   #predictors <- renderPrint(input$mychooser)
@@ -32,10 +32,19 @@ logisticRegressionModel <- function(input){
 
 function(input, output) {
   output$out2 <- renderPrint(input$in2)
-  
   output$out3 <- renderPrint(input$in3)
-  
   output$selection <- renderPrint(input$mychooser)
+  
+  logitModelReactive <- eventReactive(input$action, {
+                                                      logitModel(input)
+                                                      }, ignoreNULL = FALSE
+                                      )
+  reactiveSample <- eventReactive(input$action, {renderPrint("Hello Me!")}, ignoreNULL = FALSE)
+  
+  # Generate a summary of the dataset ----
+  output$logit.model.summary <- renderPrint({
+    summary(logitModelReactive)
+  })
   
   output$fields <- renderUI({
     fluidPage(
@@ -87,7 +96,8 @@ function(input, output) {
         )
       ),
       fluidRow(
-        tags$hr()
+        tags$hr(),
+        h5(reactiveSample())
       )
     )
   })
