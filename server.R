@@ -55,8 +55,8 @@ function(input, output) {
                tags$br(),
                h3("Step 3"),
                h5("Choose Prediction Models:"),
-               selectInput('in3', 'Options', c("Logistic", "Naive Bayes", "Neural Networks", "SVM"), multiple=TRUE, selectize=TRUE),
-               verbatimTextOutput('out3')
+               selectInput('in3', 'Options', c("Logistic", "Naive Bayes", "Neural Networks", "SVM"), multiple=TRUE, selectize=TRUE)#,
+               #verbatimTextOutput('out3')
         )        
       ),
       fluidRow(
