@@ -22,7 +22,6 @@ shinyUI(
                mainPanel(
                  tabsetPanel(
                    tabPanel("Data Selector",
-                            
                             # Horizontal line ----
                             tags$br(),
                             
