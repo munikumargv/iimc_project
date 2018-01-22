@@ -96,8 +96,8 @@ function(input, output) {
         )
       ),
       fluidRow(
-        tags$hr(),
-        h5(reactiveSample())
+        tags$hr()
+        #,h5(reactiveSample())
       )
     )
   })
