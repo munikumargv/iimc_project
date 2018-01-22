@@ -34,7 +34,7 @@ function(input, output) {
         column(4,
           # Horizontal line ----
           tags$br(),
-          h3("Step 1"),
+          h4("Step 1"),
           h5("Choose Predictors:"),
           chooserInput("mychooser", "Available frobs", "Selected frobs",
                        names(selectData(input)), c(), size = 10, multiple = TRUE
@@ -45,7 +45,7 @@ function(input, output) {
         column(4,
                # Horizontal line ----
                tags$br(),
-               h3("Step 2"),
+               h4("Step 2"),
                h5("Choose Outcome Variable:"),
                selectInput('in2', 'Options', names(selectData(input)), selectize=FALSE),
                verbatimTextOutput('out2')
@@ -53,11 +53,27 @@ function(input, output) {
         column(4,
                # Horizontal line ----
                tags$br(),
-               h3("Step 3"),
+               h4("Step 3"),
                h5("Choose Prediction Models:"),
                selectInput('in3', 'Options', c("Logistic", "Naive Bayes", "Neural Networks", "SVM"), multiple=TRUE, selectize=TRUE)#,
                #verbatimTextOutput('out3')
-        )        
+        )
+      ),
+      fluidRow(
+        tags$hr(),
+        column(4,
+               # Horizontal line ----
+               tags$br(),
+               h4("Step 4"),
+               h5("Choose Data Imputation Method:"),
+               selectInput('in4', 'Options', c("Mice"), selectize=FALSE)
+        ),
+        column(4,
+               # Horizontal line ----
+               tags$br(),
+               h4("Step 5"),
+               h5("Run the Model(s)")
+        )
       ),
       fluidRow(
         tags$hr()
