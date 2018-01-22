@@ -65,7 +65,6 @@ shinyUI(
                    tabPanel("Naive Bayes Classifier", "This panel is intentionally left blank"),
                    tabPanel("Neural Networks", "This panel is intentionally left blank"),
                    tabPanel("SVM", "This panel is intentionally left blank"),
-                   tabPanel("Model Comparison", "This panel is intentionally left blank"),
                    tabPanel("Prediction", "This panel is intentionally left blank")
                  )
                )
