@@ -88,13 +88,14 @@ function(input, output) {
                # Horizontal line ----
                tags$br(),
                h4("Step 5"),
-               h5("Run the Model(s):"),
+               h5("Train the Model(s):"),
                tags$br(),
                actionButton("action", label = "Run Now!", class = "btn-primary")
         )
       ),
       fluidRow(
         tags$hr(),
+        h4("Model Summary"),
         tableOutput("nText")
       )
     )
