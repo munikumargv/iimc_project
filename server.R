@@ -26,7 +26,7 @@ logitModel <- function(input){
   my.data <- selectData(input)
   outcome <- renderPrint(input$in2)
   #predictors <- renderPrint(input$mychooser)
-  logit.model <- glm(outcome ~ ., data = my.data, family = "binomial")
+  logit.model <- glm(diabetes ~ ., data = my.data, family = "binomial")
   logit.model
 }
 
@@ -35,16 +35,14 @@ function(input, output) {
   output$out3 <- renderPrint(input$in3)
   output$selection <- renderPrint(input$mychooser)
   
-  logitModelReactive <- eventReactive(input$action, {
-                                                      logitModel(input)
-                                                      }, ignoreNULL = FALSE
-                                      )
-  reactiveSample <- eventReactive(input$action, {renderPrint("Hello Me!")}, ignoreNULL = FALSE)
-  
-  # Generate a summary of the dataset ----
-  output$logit.model.summary <- renderPrint({
-    summary(logitModelReactive)
+  logit <- eventReactive(input$action, {
+    logitModel(input)
   })
+  
+  output$nText <- renderTable({
+    as.data.frame(summary(logit())$coeff)
+  })
+  ##---------------------------------------------------
   
   output$fields <- renderUI({
     fluidPage(
@@ -96,8 +94,8 @@ function(input, output) {
         )
       ),
       fluidRow(
-        tags$hr()
-        #,h5(reactiveSample())
+        tags$hr(),
+        tableOutput("nText")
       )
     )
   })
