@@ -24,10 +24,10 @@ selectData <- function (input){
 #
 logitModel <- function(input){
   my.data <- selectData(input)
-  outcome <- textOutput(input$in2)
-  #predictors <- renderPrint(input$mychooser)
-  logit.model <- glm(diabetes ~ ., data = my.data, family = "binomial")
-  logit.model
+  y <- input$in2
+  x <- "."
+  f <- as.formula(paste(y, x, sep="~"))
+  glm(f, data = my.data, family = "binomial")
 }
 
 function(input, output) {
