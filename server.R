@@ -43,6 +43,10 @@ function(input, output) {
     as.data.frame(summary(logit())$coeff)
   })
   
+  output$nPlot <- renderPlot({
+    plot(logit())
+  })
+  
   output$nTextLR <- renderTable({
     as.data.frame(summary(logit())$coeff)
   })  
@@ -100,7 +104,7 @@ function(input, output) {
       fluidRow(
         tags$hr(),
         h4("Model Summary"),
-        tableOutput("nText")
+        plotOutput("nPlot")
       )
     )
   })
