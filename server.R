@@ -21,14 +21,16 @@ selectData <- function (input){
   }
 }
 
-#
+#Logistic Regression Model
 logitModel <- function(input){
   my.data <- selectData(input)
   y <- input$in2
-  x <- "."
+  x <- paste0(unlist((input$mychooser)[2]), collapse = "+")
   f <- as.formula(paste(y, x, sep="~"))
   glm(f, data = my.data, family = "binomial")
 }
+
+
 
 function(input, output) {
   output$out2 <- renderPrint(input$in2)
