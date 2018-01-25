@@ -24,7 +24,7 @@ selectData <- function (input){
 #
 logitModel <- function(input){
   my.data <- selectData(input)
-  outcome <- renderPrint(input$in2)
+  outcome <- textOutput(input$in2)
   #predictors <- renderPrint(input$mychooser)
   logit.model <- glm(diabetes ~ ., data = my.data, family = "binomial")
   logit.model
@@ -42,6 +42,10 @@ function(input, output) {
   output$nText <- renderTable({
     as.data.frame(summary(logit())$coeff)
   })
+  
+  output$nTextLR <- renderTable({
+    as.data.frame(summary(logit())$coeff)
+  })  
   ##---------------------------------------------------
   
   output$fields <- renderUI({
@@ -97,6 +101,16 @@ function(input, output) {
         tags$hr(),
         h4("Model Summary"),
         tableOutput("nText")
+      )
+    )
+  })
+  
+  #Logistic Regression Tab
+  output$fields.lr <- renderUI({
+    fluidPage(
+      fluidRow(
+        h4("Model Summary"),
+        tableOutput("nTextLR")
       )
     )
   })
