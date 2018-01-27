@@ -8,6 +8,9 @@
 library(shiny)
 library(DT)
 library(mlbench)
+library(e1071)
+library(caret)
+library(nnet)
 data(PimaIndiansDiabetes)
 source("chooser.R")
 
@@ -22,7 +25,7 @@ selectData <- function (input){
 }
 
 #Logistic Regression Model
-logitModel <- function(input){
+logitFunc <- function(input){
   my.data <- selectData(input)
   y <- input$in2
   x <- paste0(unlist((input$mychooser)[2]), collapse = "+")
@@ -30,30 +33,48 @@ logitModel <- function(input){
   glm(f, data = my.data, family = "binomial")
 }
 
-
+#Naive Bayes Model
+naiveBayesFunc <- function(input){
+    my.data <- selectData(input)
+    y <- input$in2
+    x <- paste0(unlist((input$mychooser)[2]), collapse = "+")
+    f <- as.formula(paste(y, x, sep="~"))
+    naiveBayes(f, data = my.data)
+}
 
 function(input, output) {
   output$out2 <- renderPrint(input$in2)
   output$out3 <- renderPrint(input$in3)
   output$selection <- renderPrint(input$mychooser)
   
-  logit <- eventReactive(input$action, {
-    logitModel(input)
+  ##-------------------------------------------------
+  logitModel <- eventReactive(input$action, {
+      logitFunc(input)
+  })
+ 
+  output$nPlotLogistic <- renderPlot({
+      plot(logitModel())
   })
   
-  output$nText <- renderTable({
-    as.data.frame(summary(logit())$coeff)
+  output$nTextLogistic <- renderTable({
+      as.data.frame(summary(logitModel())$coeff)
   })
   
-  output$nPlot <- renderPlot({
-    plot(logit())
+  ##-------------------------------------------------  
+  naiveBayesModel <- eventReactive(input$action, {
+      naiveBayesFunc(input)
+  }) 
+ 
+  output$nPlotNaiveBayes <- renderPlot({
+      plot(naiveBayesModel())
   })
   
-  output$nTextLR <- renderTable({
-    as.data.frame(summary(logit())$coeff)
-  })  
+  output$nTextNaiveBayes <- renderTable({
+      as.data.frame(naiveBayesModel()$tables[1])
+  })
+  
   ##---------------------------------------------------
-  
+
   output$fields <- renderUI({
     fluidPage(
       fluidRow(
@@ -106,8 +127,8 @@ function(input, output) {
       fluidRow(
         tags$hr(),
         h4("Model Summary"),
-        plotOutput("nPlot")
-      )
+        plotOutput("nPlotLogistic")
+      )   
     )
   })
   
@@ -116,10 +137,20 @@ function(input, output) {
     fluidPage(
       fluidRow(
         h4("Model Summary"),
-        tableOutput("nTextLR")
+        tableOutput("nTextLogistic")
       )
     )
   })
+  
+  #Naive Bayes Tab
+  output$fields.nb <- renderUI({
+      fluidPage(
+          fluidRow(
+              h4("Model Summary"),
+              tableOutput("nTextNaiveBayes")
+          )
+      )
+  })  
   
   output$contents <- DT::renderDataTable({
       DT::datatable(selectData(input))
@@ -129,4 +160,3 @@ function(input, output) {
     summary(selectData(input))
   })
 }
-
