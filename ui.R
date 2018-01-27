@@ -61,11 +61,11 @@ shinyUI(
                             )
                    ),
                    tabPanel("Model Configuration", uiOutput("fields")),
+                   tabPanel("Model Prediction", "This panel is intentionally left blank"),
                    tabPanel("Logistic Regression", uiOutput("fields.lr")),
-                   tabPanel("Naive Bayes Classifier", "This panel is intentionally left blank"),
+                   tabPanel("Naive Bayes", uiOutput("fields.nb")),
                    tabPanel("Neural Networks", "This panel is intentionally left blank"),
-                   tabPanel("SVM", "This panel is intentionally left blank"),
-                   tabPanel("Prediction", "This panel is intentionally left blank")
+                   tabPanel("SVM", "This panel is intentionally left blank")
                  )
                )
       ),
