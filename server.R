@@ -42,6 +42,15 @@ naiveBayesFunc <- function(input){
     naiveBayes(f, data = my.data)
 }
 
+#Neural Networks Model
+nnetFunc <- function(input){
+    my.data <- selectData(input)
+    y <- input$in2
+    x <- paste0(unlist((input$mychooser)[2]), collapse = "+")
+    f <- as.formula(paste(y, x, sep="~"))
+    nnet(f, data = my.data, size=10, decay = 0.025, maxit = 10000)
+}
+
 function(input, output) {
   output$out2 <- renderPrint(input$in2)
   output$out3 <- renderPrint(input$in3)
@@ -63,7 +72,7 @@ function(input, output) {
   ##-------------------------------------------------  
   naiveBayesModel <- eventReactive(input$action, {
       naiveBayesFunc(input)
-  }) 
+  })
  
   output$nPlotNaiveBayes <- renderPlot({
       plot(naiveBayesModel())
@@ -74,7 +83,20 @@ function(input, output) {
   })
   
   ##---------------------------------------------------
-
+  nnetModel <- eventReactive(input$action, {
+      nnetFunc(input)
+  })
+  
+  output$nPlotNNet <- renderPlot({
+      plot(nnetModel())
+  })
+  
+  output$nTextNNet <- renderText({
+      summary(nnetModel()[1])
+  })
+  
+  ##---------------------------------------------------
+  
   output$fields <- renderUI({
     fluidPage(
       fluidRow(
@@ -151,6 +173,16 @@ function(input, output) {
           )
       )
   })  
+
+  #Neural Networks Tab
+  output$fields.nnet <- renderUI({
+      fluidPage(
+          fluidRow(
+              h4("Model Summary"),
+              verbatimTextOutput("nTextNNet")
+          )
+      )
+  })
   
   output$contents <- DT::renderDataTable({
       DT::datatable(selectData(input))
