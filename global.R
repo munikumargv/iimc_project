@@ -51,3 +51,10 @@ nnetFunc <- function(input){
     my.data <- selectData(input)
     nnet(modelFormula(input), data = getTrainingData(input), size=10, decay = 0.025, maxit = 10000)
 }
+
+#Confusion Matrix for Naive Bayes
+predict.naivebayes.fulldata <- function(input){
+    test.data <- getTestData(input)
+    naivebayes.predicted.fulldata <- predict(naiveBayesFunc(input), test.data)
+    table(naivebayes.predicted.fulldata, test.data[,Survived], dnn = c("Predicted", "Actual"))
+}
