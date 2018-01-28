@@ -187,11 +187,12 @@ function(input, output) {
       )
   })
   
+  #This shows all the contents(Train + Test) from the dataset
   output$contents <- DT::renderDataTable({
-      train.data <- selectData(input)#This is wrong, fix it.
-      DT::datatable(train.data)
+      DT::datatable(selectData(input))
   })
   
+  #This shows summary of all the contents(Train + Test) from the dataset
   output$summary <- renderPrint({
     summary(selectData(input))
   })
