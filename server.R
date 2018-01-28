@@ -14,43 +14,7 @@ library(nnet)
 data(PimaIndiansDiabetes)
 source("chooser.R")
 
-selectData <- function (input){
-  if(input$radio == 2){
-    req(input$file1)
-    df <- read.csv(input$file1$datapath, sep = input$sep)
-    df
-  }else{
-    PimaIndiansDiabetes
-  }
-}
-
-#Logistic Regression Model
-logitFunc <- function(input){
-  my.data <- selectData(input)
-  y <- input$in2
-  x <- paste0(unlist((input$mychooser)[2]), collapse = "+")
-  f <- as.formula(paste(y, x, sep="~"))
-  glm(f, data = my.data, family = "binomial")
-}
-
-#Naive Bayes Model
-naiveBayesFunc <- function(input){
-    my.data <- selectData(input)
-    y <- input$in2
-    x <- paste0(unlist((input$mychooser)[2]), collapse = "+")
-    f <- as.formula(paste(y, x, sep="~"))
-    naiveBayes(f, data = my.data)
-}
-
-#Neural Networks Model
-nnetFunc <- function(input){
-    my.data <- selectData(input)
-    y <- input$in2
-    x <- paste0(unlist((input$mychooser)[2]), collapse = "+")
-    f <- as.formula(paste(y, x, sep="~"))
-    nnet(f, data = my.data, size=10, decay = 0.025, maxit = 10000)
-}
-
+##
 function(input, output) {
   output$out2 <- renderPrint(input$in2)
   output$out3 <- renderPrint(input$in3)
