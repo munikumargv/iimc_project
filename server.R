@@ -20,6 +20,46 @@ function(input, output) {
   output$out3 <- renderPrint(input$in3)
   output$selection <- renderPrint(input$mychooser)
   
+  #Logistic Regression Tab
+  output$fields.lr <- renderUI({
+      fluidPage(
+          fluidRow(
+              h4("Model Summary"),
+              tableOutput("nTextLogistic")
+          )
+      )
+  })
+  
+  #Naive Bayes Tab
+  output$fields.nb <- renderUI({
+      fluidPage(
+          fluidRow(
+              h4("Model Summary"),
+              tableOutput("nTextNaiveBayes")
+          )
+      )
+  })  
+  
+  #Neural Networks Tab
+  output$fields.nnet <- renderUI({
+      fluidPage(
+          fluidRow(
+              h4("Model Summary"),
+              verbatimTextOutput("nTextNNet")
+          )
+      )
+  })
+  
+  #This shows all the contents(Train + Test) from the dataset
+  output$contents <- DT::renderDataTable({
+      DT::datatable(selectData(input))
+  })
+  
+  #This shows summary of all the contents(Train + Test) from the dataset
+  output$summary <- renderPrint({
+      summary(selectData(input))
+  })
+  
   ##-------------------------------------------------
   logitModel <- eventReactive(input$actionTrain, {
       logitFunc(input)
@@ -46,6 +86,10 @@ function(input, output) {
       as.data.frame(naiveBayesModel()$tables[1])
   })
   
+  #Confusion Matrix for Naive Bayes
+  output$naiveBayesTable <- renderTable({
+      as.data.frame(naiveBayesModel()$tables[1])
+  })  
   ##---------------------------------------------------
   nnetModel <- eventReactive(input$actionTrain, {
       nnetFunc(input)
@@ -59,7 +103,8 @@ function(input, output) {
       summary(nnetModel()[1])
   })
   
-  ##---------------------------------------------------
+  #-----------------------------------------------------------------------------
+  #Data Selection Tab
   output$dataselector <- renderUI({
   fluidPage(
       fluidRow(
@@ -92,6 +137,8 @@ function(input, output) {
         )
   })
   
+  #-----------------------------------------------------------------------------
+  #Model Configuration Tab
   output$fields <- renderUI({
     fluidPage(
       fluidRow(
@@ -155,45 +202,5 @@ function(input, output) {
         plotOutput("nPlotLogistic")
       )   
     )
-  })
-  
-  #Logistic Regression Tab
-  output$fields.lr <- renderUI({
-    fluidPage(
-      fluidRow(
-        h4("Model Summary"),
-        tableOutput("nTextLogistic")
-      )
-    )
-  })
-  
-  #Naive Bayes Tab
-  output$fields.nb <- renderUI({
-      fluidPage(
-          fluidRow(
-              h4("Model Summary"),
-              tableOutput("nTextNaiveBayes")
-          )
-      )
-  })  
-
-  #Neural Networks Tab
-  output$fields.nnet <- renderUI({
-      fluidPage(
-          fluidRow(
-              h4("Model Summary"),
-              verbatimTextOutput("nTextNNet")
-          )
-      )
-  })
-  
-  #This shows all the contents(Train + Test) from the dataset
-  output$contents <- DT::renderDataTable({
-      DT::datatable(selectData(input))
-  })
-  
-  #This shows summary of all the contents(Train + Test) from the dataset
-  output$summary <- renderPrint({
-    summary(selectData(input))
   })
 }
