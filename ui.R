@@ -21,30 +21,7 @@ shinyUI(
       tabPanel("Classification",
                mainPanel(
                  tabsetPanel(
-                   tabPanel("Data Selector",
-                            # Horizontal line ----
-                            tags$br(),
-                            
-                            radioButtons("radio", label = h5("Use example data or upload your data:"),
-                                         choices = list("Load Example dataset" = 1, 
-                                                        "Upload your dataset" = 2), 
-                                         selected = 1),
-
-                            # Horizontal line ----
-                            tags$hr(),
-                            
-                            # Input: Select a file ----
-                            fileInput("file1", h5("Choose CSV File"),
-                                      multiple = TRUE,
-                                      accept = c("text/csv",
-                                                 "text/comma-separated-values,text/plain",
-                                                 ".csv")),
-                            
-                            tabsetPanel(
-                              tabPanel("Data Snapshot", DT::dataTableOutput("contents")),
-                              tabPanel("Data Summary", verbatimTextOutput("summary"))
-                            )
-                   ),
+                   tabPanel("Data Selector", uiOutput("dataselector")),
                    tabPanel("Model Configuration", uiOutput("fields")),
                    tabPanel("Model Prediction", "This panel is intentionally left blank"),
                    tabPanel("Logistic Regression", uiOutput("fields.lr")),
