@@ -53,8 +53,8 @@ nnetFunc <- function(input){
 }
 
 #Confusion Matrix for Naive Bayes
-predict.naivebayes.fulldata <- function(input){
+predict.naivebayes.fulldata <- function(input, outcome){
     test.data <- getTestData(input)
     naivebayes.predicted.fulldata <- predict(naiveBayesFunc(input), test.data)
-    table(naivebayes.predicted.fulldata, test.data[,Survived], dnn = c("Predicted", "Actual"))
+    table(naivebayes.predicted.fulldata, test.data[,outcome], dnn = c("Predicted", "Actual"))
 }
