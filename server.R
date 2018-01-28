@@ -188,7 +188,8 @@ function(input, output) {
   })
   
   output$contents <- DT::renderDataTable({
-      DT::datatable(selectData(input))
+      train.data <- selectData(input)#This is wrong, fix it.
+      DT::datatable(train.data)
   })
   
   output$summary <- renderPrint({
