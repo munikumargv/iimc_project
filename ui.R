@@ -29,10 +29,7 @@ shinyUI(
                                          choices = list("Load Example dataset" = 1, 
                                                         "Upload your dataset" = 2), 
                                          selected = 1),
-                            
-                            
-                            textOutput("radioSelection"),
-                            #uiOutput("ui"),
+
                             # Horizontal line ----
                             tags$hr(),
                             
