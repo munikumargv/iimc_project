@@ -3,7 +3,7 @@
 selectData <- function (input){
     if(input$radio == 2){
         req(input$file1)
-        df <- read.csv(input$file1$datapath, sep = input$sep)
+        df <- read.csv(input$file1$datapath, sep = ",")
         df
     }else{
         PimaIndiansDiabetes
