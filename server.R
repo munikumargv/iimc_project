@@ -21,7 +21,7 @@ function(input, output) {
   output$selection <- renderPrint(input$mychooser)
   
   ##-------------------------------------------------
-  logitModel <- eventReactive(input$action, {
+  logitModel <- eventReactive(input$actionTrain, {
       logitFunc(input)
   })
  
@@ -34,7 +34,7 @@ function(input, output) {
   })
   
   ##-------------------------------------------------  
-  naiveBayesModel <- eventReactive(input$action, {
+  naiveBayesModel <- eventReactive(input$actionTrain, {
       naiveBayesFunc(input)
   })
  
@@ -47,7 +47,7 @@ function(input, output) {
   })
   
   ##---------------------------------------------------
-  nnetModel <- eventReactive(input$action, {
+  nnetModel <- eventReactive(input$actionTrain, {
       nnetFunc(input)
   })
   
@@ -138,7 +138,7 @@ function(input, output) {
                h4("Step 5"),
                h5("Train the Model(s):"),
                tags$br(),
-               actionButton("action", label = "Train Now!", class = "btn-primary")
+               actionButton("actionTrain", label = "Train Now!", class = "btn-primary")
         ),
         column(4,
                # Horizontal line ----
@@ -146,7 +146,7 @@ function(input, output) {
                h4("Step 6"),
                h5("Test the Model(s):"),
                tags$br(),
-               actionButton("action", label = "Test Now!", class = "btn-primary")
+               actionButton("actionTest", label = "Test Now!", class = "btn-primary")
         )        
       ),
       fluidRow(
