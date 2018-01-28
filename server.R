@@ -138,7 +138,7 @@ function(input, output) {
                h4("Step 5"),
                h5("Train the Model(s):"),
                tags$br(),
-               actionButton("actionTrain", label = "Train Now!", class = "btn-primary")
+               actionButton("actionTrain", label = "Train Now !", class = "btn-primary")
         ),
         column(4,
                # Horizontal line ----
@@ -146,7 +146,7 @@ function(input, output) {
                h4("Step 6"),
                h5("Test the Model(s):"),
                tags$br(),
-               actionButton("actionTest", label = "Test Now!", class = "btn-primary")
+               actionButton("actionTest", label = "Test Now !", class = "btn-primary")
         )        
       ),
       fluidRow(
