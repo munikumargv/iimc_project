@@ -60,6 +60,36 @@ function(input, output) {
   })
   
   ##---------------------------------------------------
+  output$dataselector <- renderUI({
+  fluidPage(
+      fluidRow(
+          column(12,      
+                    # Horizontal line ----
+                    tags$br(),
+                    
+                    radioButtons("radio", label = h5("Use example data or upload your data:"),
+                               choices = list("Load Example dataset" = 1, 
+                                              "Upload your dataset" = 2), 
+                               selected = 1),
+                    
+                    # Horizontal line ----
+                    tags$hr(),
+                    
+                    # Input: Select a file ----
+                    fileInput("file1", h5("Choose CSV File"),
+                            multiple = TRUE,
+                            accept = c("text/csv",
+                                       "text/comma-separated-values,text/plain",
+                                       ".csv")),
+                    
+                    tabsetPanel(
+                      tabPanel("Data Snapshot", DT::dataTableOutput("contents")),
+                      tabPanel("Data Summary", verbatimTextOutput("summary"))
+                    )
+                )
+            )
+        )
+  })
   
   output$fields <- renderUI({
     fluidPage(
