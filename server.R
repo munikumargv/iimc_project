@@ -138,8 +138,16 @@ function(input, output) {
                h4("Step 5"),
                h5("Train the Model(s):"),
                tags$br(),
-               actionButton("action", label = "Run Now!", class = "btn-primary")
-        )
+               actionButton("action", label = "Train Now!", class = "btn-primary")
+        ),
+        column(4,
+               # Horizontal line ----
+               tags$br(),
+               h4("Step 6"),
+               h5("Test the Model(s):"),
+               tags$br(),
+               actionButton("action", label = "Test Now!", class = "btn-primary")
+        )        
       ),
       fluidRow(
         tags$hr(),
