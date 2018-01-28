@@ -43,18 +43,6 @@ shinyUI(
                                                  "text/comma-separated-values,text/plain",
                                                  ".csv")),
                             
-                            # Horizontal line ----
-                            tags$hr(),
-                            
-                            # Input: Select separator ----
-                            radioButtons("sep", h5("Separator"),
-                                         choices = c(Comma = ",",
-                                                     Semicolon = ";",
-                                                     Tab = "\t"),
-                                         selected = ","),
-                            # Horizontal line ----
-                            tags$hr(),
-                            
                             tabsetPanel(
                               tabPanel("Data Snapshot", DT::dataTableOutput("contents")),
                               tabPanel("Data Summary", verbatimTextOutput("summary"))
