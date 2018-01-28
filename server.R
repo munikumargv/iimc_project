@@ -35,7 +35,7 @@ function(input, output) {
       fluidPage(
           fluidRow(
               h4("Model Summary"),
-              tableOutput("nTextNaiveBayes")
+              tableOutput("naiveBayesTable")
           )
       )
   })  
@@ -88,7 +88,7 @@ function(input, output) {
   
   #Confusion Matrix for Naive Bayes
   output$naiveBayesTable <- renderTable({
-      as.data.frame(naiveBayesModel()$tables[1])
+      as.data.frame(predict.naivebayes.fulldata(input, input$in2))
   })  
   ##---------------------------------------------------
   nnetModel <- eventReactive(input$actionTrain, {
