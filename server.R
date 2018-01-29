@@ -9,7 +9,7 @@ library(shiny)
 library(DT)
 library(mlbench)
 library(e1071)
-library(caret)
+library(caTools)
 library(nnet)
 data(PimaIndiansDiabetes)
 source("chooser.R")
@@ -25,6 +25,8 @@ function(input, output) {
       fluidPage(
           fluidRow(
               h4("Model Summary"),
+              tableOutput("logitTable"),
+              tags$br(),
               tableOutput("nTextLogistic")
           )
       )
@@ -45,10 +47,20 @@ function(input, output) {
       fluidPage(
           fluidRow(
               h4("Model Summary"),
-              verbatimTextOutput("nTextNNet")
+              tableOutput("nnetTable")
           )
       )
   })
+  
+  #SVM Tab
+  output$fields.svm <- renderUI({
+    fluidPage(
+      fluidRow(
+        h4("Model Summary"),
+        tableOutput("svmTable")
+      )
+    )
+  })  
   
   #This shows all the contents(Train + Test) from the dataset
   output$contents <- DT::renderDataTable({
@@ -72,7 +84,11 @@ function(input, output) {
   output$nTextLogistic <- renderTable({
       as.data.frame(summary(logitModel())$coeff)
   })
-  
+
+  #Confusion Matrix for Logistic
+  output$logitTable <- renderTable({
+    as.data.frame(predict.logit.fulldata(input, input$in2))
+  })
   ##-------------------------------------------------  
   naiveBayesModel <- eventReactive(input$actionTrain, {
       naiveBayesFunc(input)
@@ -88,8 +104,8 @@ function(input, output) {
   
   #Confusion Matrix for Naive Bayes
   output$naiveBayesTable <- renderTable({
-      as.data.frame(predict.naivebayes.fulldata(input, input$in2))
-  })  
+    as.data.frame(predict.naivebayes.fulldata(input, input$in2))
+  })
   ##---------------------------------------------------
   nnetModel <- eventReactive(input$actionTrain, {
       nnetFunc(input)
@@ -103,7 +119,18 @@ function(input, output) {
       summary(nnetModel()[1])
   })
   
+  #Confusion Matrix for Neural Networks
+  output$nnetTable <- renderTable({
+    as.data.frame(predict.nnet.fulldata(input, input$in2))
+  })
   #-----------------------------------------------------------------------------
+  
+  #Confusion Matrix for SVM
+  output$svmTable <- renderTable({
+    as.data.frame(predict.svm.fulldata(input, input$in2))
+  })  
+  #-----------------------------------------------------------------------------
+  
   #Data Selection Tab
   output$dataselector <- renderUI({
   fluidPage(
@@ -191,16 +218,16 @@ function(input, output) {
                # Horizontal line ----
                tags$br(),
                h4("Step 6"),
-               h5("Test the Model(s):"),
+               h5("Validate the Model(s):"),
                tags$br(),
-               actionButton("actionTest", label = "Test Now !", class = "btn-primary")
-        )        
+               actionButton("actionValidate", label = "Validate Now !", class = "btn-primary")
+        )
       ),
       fluidRow(
         tags$hr(),
         h4("Model Summary"),
         plotOutput("nPlotLogistic")
-      )   
+      )
     )
   })
 }
