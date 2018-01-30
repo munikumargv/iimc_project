@@ -23,7 +23,7 @@ shinyUI(
                  tabsetPanel(
                    tabPanel("Data Selector", uiOutput("dataselector")),
                    tabPanel("Model Configuration", uiOutput("fields")),
-                   tabPanel("Model Prediction", "This panel is intentionally left blank"),
+                   tabPanel("Model Prediction", uiOutput("modelprediction")),
                    tabPanel("Logistic Regression", uiOutput("fields.lr")),
                    tabPanel("Naive Bayes", uiOutput("fields.nb")),
                    tabPanel("Neural Networks", uiOutput("fields.nnet")),
