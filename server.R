@@ -76,59 +76,66 @@ function(input, output) {
   logitModel <- eventReactive(input$actionTrain, {
       logitFunc(input)
   })
- 
+  
+  logitModelCoeff <- eventReactive(input$actionTrain, {
+    as.data.frame(summary(logitModel())$coeff)
+  })
+  
+  logitModelTable <- eventReactive(input$actionTrain, {
+    as.data.frame(predict.logit.fulldata(input, input$in2))
+  })
+  
   output$nPlotLogistic <- renderPlot({
       plot(logitModel())
   })
   
   output$nTextLogistic <- renderTable({
-      as.data.frame(summary(logitModel())$coeff)
+    logitModelCoeff()
   })
 
   #Confusion Matrix for Logistic
   output$logitTable <- renderTable({
-    as.data.frame(predict.logit.fulldata(input, input$in2))
+    logitModelTable()
   })
   ##-------------------------------------------------  
   naiveBayesModel <- eventReactive(input$actionTrain, {
       naiveBayesFunc(input)
   })
  
-  output$nPlotNaiveBayes <- renderPlot({
-      plot(naiveBayesModel())
-  })
-  
-  output$nTextNaiveBayes <- renderTable({
-      as.data.frame(naiveBayesModel()$tables[1])
+  naiveBayesModelTable <- eventReactive(input$actionTrain, {
+    as.data.frame(predict.naivebayes.fulldata(input, input$in2))
   })
   
   #Confusion Matrix for Naive Bayes
   output$naiveBayesTable <- renderTable({
-    as.data.frame(predict.naivebayes.fulldata(input, input$in2))
+    naiveBayesModelTable()
   })
   ##---------------------------------------------------
   nnetModel <- eventReactive(input$actionTrain, {
       nnetFunc(input)
   })
   
-  output$nPlotNNet <- renderPlot({
-      plot(nnetModel())
-  })
-  
-  output$nTextNNet <- renderText({
-      summary(nnetModel()[1])
-  })
+  nnetModelTable <- eventReactive(input$actionTrain, {
+    as.data.frame(predict.nnet.fulldata(input, input$in2))
+  })  
   
   #Confusion Matrix for Neural Networks
   output$nnetTable <- renderTable({
-    as.data.frame(predict.nnet.fulldata(input, input$in2))
+    nnetModelTable()
   })
   #-----------------------------------------------------------------------------
+  svmModel <- eventReactive(input$actionTrain, {
+    svmFunc(input)
+  })
+  
+  svmModelTable <- eventReactive(input$actionTrain, {
+    as.data.frame(predict.svm.fulldata(input, input$in2))
+  })  
   
   #Confusion Matrix for SVM
   output$svmTable <- renderTable({
-    as.data.frame(predict.svm.fulldata(input, input$in2))
-  })  
+    svmModelTable()
+  })
   #-----------------------------------------------------------------------------
   
   #Data Selection Tab
@@ -230,4 +237,37 @@ function(input, output) {
       )
     )
   })
+  #-----------------------------------------------------------------------------
+  #Model Prediction Tab
+  output$modelprediction <- renderUI({
+    fluidPage(
+      # Application title
+      h4("Model Predictors"),
+      sidebarLayout(
+        # Sidebar with a slider input
+        sidebarPanel(
+          sliderInput("var1",
+                      "Glucose:",
+                      min = min(PimaIndiansDiabetes$glucose),
+                      max = max(PimaIndiansDiabetes$glucose),
+                      value = median(PimaIndiansDiabetes$glucose)),
+          sliderInput("var2",
+                      "Insulin:",
+                      min = min(PimaIndiansDiabetes$insulin),
+                      max = max(PimaIndiansDiabetes$insulin),
+                      value = median(PimaIndiansDiabetes$insulin))          
+        ),
+        # Show a plot of the generated distribution
+        mainPanel(
+          plotOutput("distPlot")
+        )
+      )
+    )
+  })
+  
+  #Sample Code, Take it out!
+  output$distPlot <- renderPlot({
+    hist(rnorm(input$var1))
+  })
+  #-----------------------------------------------------------------------------
 }
