@@ -23,9 +23,18 @@ convertToFactors <- function(inputData, input){
   inputData
 }
 
-
 #Step 3: Data Pre-Processing [Impute missing data]
 imputeMissingData <- function(inputData, input){
+  ## To be done
+}
+
+#Step 3.1: Data Pre-Processing [Impute missing data: Mice]
+imputeMissingDataMice <- function(inputData, input){
+  ## To be done
+}
+
+#Step 3.2: Data Pre-Processing [Impute missing data: Option 2]
+imputeMissingDataOption2 <- function(inputData, input){
   ## To be done
 }
 
@@ -74,7 +83,7 @@ logitFunc <- function(input){
 
 #Naive Bayes Model
 naiveBayesFunc <- function(input){
-    naiveBayes(modelFormula(input), data = getTrainingData(input))
+  naiveBayes(modelFormula(input), data = getTrainingData(input))
 }
 
 #Neural Networks Model
@@ -118,3 +127,11 @@ predict.svm.fulldata <- function(input, outcome){
   table(svm.predicted.fulldata, test.data[,outcome], dnn = c("Predicted", "Actual"))
 }
 ##--------------------------------Model Building Ends-------------------------
+
+##--------------------------------Model Prediction Starts---------------------
+deriveInputDataVars <- function(input){
+  predictors <- unlist((input$mychooser)[2])
+  inputDataVars <- getTestData(input)[, predictors]
+}
+
+##--------------------------------Model Prediction Ends-----------------------
