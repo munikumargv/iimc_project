@@ -211,7 +211,7 @@ function(input, output) {
                tags$br(),
                h4("Step 4"),
                h5("Choose Data Imputation Method:"),
-               selectInput('in4', 'Options', c("Mice"), selectize=FALSE)
+               selectInput('in4', 'Options', c("Mice", "Option2"), selectize=FALSE)
         ),
         column(4,
                # Horizontal line ----
