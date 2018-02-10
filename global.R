@@ -52,8 +52,9 @@ imputeMissingDataOption2 <- function(inputData, input){
 
 #Step 4: Data Pre-Processing [Top Level Function]
 preProcessData <- function(inputData, input){
-  convertToFactors(inputData, input)
-  imputeMissingData(inputData, input)
+  processedData.1 <- convertToFactors(inputData, input)
+  processedData.2 <- imputeMissingData(processedData.1, input)
+  processedData.2
 }
 
 #Step 5: Split data into training and test datasets
