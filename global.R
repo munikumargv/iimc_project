@@ -23,25 +23,37 @@ convertToFactors <- function(inputData, input){
   inputData
 }
 
+##--------------------------------------------------------------------
 #Step 3: Data Pre-Processing [Impute missing data]
 imputeMissingData <- function(inputData, input){
-  ## To be done
+  dataImputationOption <- input$in4
+  if(dataImputationOption == "Mice"){
+    imputeMissingDataMice(inputData, input)
+  }
+  else if(dataImputationOption == "Option2"){
+    imputeMissingDataOption2(inputData, input)
+  }
 }
 
 #Step 3.1: Data Pre-Processing [Impute missing data: Mice]
 imputeMissingDataMice <- function(inputData, input){
-  ## To be done
+  print("Inside imputeMissingDataMice()")
+  inputData
+  ##To be done
 }
 
 #Step 3.2: Data Pre-Processing [Impute missing data: Option 2]
 imputeMissingDataOption2 <- function(inputData, input){
-  ## To be done
+  print("Inside imputeMissingDataOption2()")
+  inputData
+  ##To be done
 }
+##--------------------------------------------------------------------
 
 #Step 4: Data Pre-Processing [Top Level Function]
 preProcessData <- function(inputData, input){
   convertToFactors(inputData, input)
-  #imputeMissingData(inputData, input)
+  imputeMissingData(inputData, input)
 }
 
 #Step 5: Split data into training and test datasets
