@@ -11,6 +11,7 @@ library(mlbench)
 library(e1071)
 library(caTools)
 library(nnet)
+library(mice)
 data(PimaIndiansDiabetes)
 source("chooser.R")
 
