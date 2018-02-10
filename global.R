@@ -38,8 +38,34 @@ imputeMissingData <- function(inputData, input){
 #Step 3.1: Data Pre-Processing [Impute missing data: Mice]
 imputeMissingDataMice <- function(inputData, input){
   print("Inside imputeMissingDataMice()")
-  inputData
-  ##To be done
+  predictors <- unlist((input$mychooser)[2])
+  my.data <- inputData[, predictors]
+  nums <- sapply(my.data, is.numeric)
+  #my.data stroes all numeric columns from predictors set
+  my.data <- my.data[, nums]
+  #Find missing data pattern
+  missing.data.count <- sum(is.na(my.data))
+  #Numeric Predictors
+  numeric.predictors <- colnames(my.data)
+  
+  if(missing.data.count == 0){
+    inputData
+  }
+  else{
+    # Perform predictive imputation on all numeric columns i.e. on all data in my.data
+    mice_mod <- mice(my.data, method='pmm', printFlag = FALSE)
+    # Save the complete output 
+    mice_output <- complete(mice_mod)
+    
+    #Copy over data from data frame "mice_output" to data frame "inputData"
+    print(paste0("Missing Count - Before", sum(is.na(inputData[, numeric.predictors]))))
+    for (i in 1:length(numeric.predictors)){
+      inputData[, numeric.predictors[i]] <- mice_output[, numeric.predictors[i]]
+    }
+    print(paste0("Missing Count - After", sum(is.na(inputData[, numeric.predictors]))))
+    
+    inputData
+  }
 }
 
 #Step 3.2: Data Pre-Processing [Impute missing data: Option 2]
@@ -68,14 +94,12 @@ splitData <- function(inputData, input){
 #Step 6: Derive Training Data
 getTrainingData <- function(input){
   preProcessedData <- preProcessData(selectData(input), input)
-  #imputedData <- imputeMissingData(preProcessedData, input)
   splitData(preProcessedData, input)[[1]]
 }
 
 #Step 7: Derive Test Data
 getTestData <- function(input){
   preProcessedData <- preProcessData(selectData(input), input)
-  #imputedData <- imputeMissingData(preProcessedData, input)
   splitData(preProcessedData, input)[[2]]
 }
 
