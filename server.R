@@ -164,7 +164,8 @@ function(input, output) {
                     
                     tabsetPanel(
                       tabPanel("Data Snapshot", DT::dataTableOutput("contents")),
-                      tabPanel("Data Summary", verbatimTextOutput("summary"))
+                      tabPanel("Data Summary", verbatimTextOutput("summary")),
+                      tabPanel("Missing Data Pattern", "This panel is intentionally left blank")
                     ),
                  tags$br()
                 )
