@@ -249,7 +249,8 @@ function(input, output) {
         # Sidebar with a slider input
         sidebarPanel(
           sliderControl("Sibsp", 0, 8, 4),
-          selectInputControl("Gender", c("male", "female"), "female")
+          selectInputControl("Gender", c("male", "female"), "female"),
+          actionButton("actionPredict", label = "Predict Now !", class = "btn-primary")
         ),
         # Show a plot of the generated distribution
         mainPanel(
@@ -260,8 +261,12 @@ function(input, output) {
   })
   
   #Sample Code, Take it out!
-  output$distPlot <- renderPlot({
+  myPlot <- eventReactive(input$actionPredict,{
     hist(rnorm(input$Sibsp))
+  })
+    
+  output$distPlot <- renderPlot({
+    plot(myPlot())
   })
   #-----------------------------------------------------------------------------
 }
