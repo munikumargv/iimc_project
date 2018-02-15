@@ -191,10 +191,7 @@ sliderControl <- function(controlName, minVal, maxVal, value){
 
 selectInputControl <- function(controlName, choices, selected){
   ui <-     
-    # Depending on input$input_type, we'll generate a different
-    # UI component and send it to the client.
-    
-    "selectInput" = selectInput(
+    selectInput(
       controlName,
       controlName,
       choices = choices,
