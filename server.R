@@ -248,7 +248,7 @@ function(input, output) {
       sidebarLayout(
         # Sidebar with a slider input
         sidebarPanel(
-          sliderControl("Gender", 10, 200, 80)
+          sliderControl("Sibsp", 0, 8, 4)
         ),
         # Show a plot of the generated distribution
         mainPanel(
@@ -260,7 +260,7 @@ function(input, output) {
   
   #Sample Code, Take it out!
   output$distPlot <- renderPlot({
-    hist(rnorm(input$Gender))
+    hist(rnorm(input$Sibsp))
   })
   #-----------------------------------------------------------------------------
 }
