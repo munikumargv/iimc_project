@@ -248,16 +248,7 @@ function(input, output) {
       sidebarLayout(
         # Sidebar with a slider input
         sidebarPanel(
-          sliderInput("var1",
-                      "Glucose:",
-                      min = min(PimaIndiansDiabetes$glucose),
-                      max = max(PimaIndiansDiabetes$glucose),
-                      value = median(PimaIndiansDiabetes$glucose)),
-          sliderInput("var2",
-                      "Insulin:",
-                      min = min(PimaIndiansDiabetes$insulin),
-                      max = max(PimaIndiansDiabetes$insulin),
-                      value = median(PimaIndiansDiabetes$insulin))          
+          sliderControl("Gender", 10, 200, 80)
         ),
         # Show a plot of the generated distribution
         mainPanel(
@@ -269,7 +260,7 @@ function(input, output) {
   
   #Sample Code, Take it out!
   output$distPlot <- renderPlot({
-    hist(rnorm(input$var1))
+    hist(rnorm(input$Gender))
   })
   #-----------------------------------------------------------------------------
 }
