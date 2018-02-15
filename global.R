@@ -27,7 +27,7 @@ convertToFactors <- function(inputData, input){
 #Step 3: Data Pre-Processing [Impute missing data]
 imputeMissingData <- function(inputData, input){
   dataImputationOption <- input$in4
-  if(dataImputationOption == "Mice"){
+  if(dataImputationOption == "Predictive Mean Matching"){
     imputeMissingDataMice(inputData, input)
   }
   else if(dataImputationOption == "Option2"){
@@ -166,9 +166,44 @@ predict.svm.fulldata <- function(input, outcome){
 ##--------------------------------Model Building Ends-------------------------
 
 ##--------------------------------Model Prediction Starts---------------------
-deriveInputDataVars <- function(input){
+deriveInputDataVars <- function(input, predictor){
   predictors <- unlist((input$mychooser)[2])
   inputDataVars <- getTestData(input)[, predictors]
+  
+  #Return levels for factor
+  if (is.factor(inputDataVars[,predictor])){
+    levels(inputDataVars[,predictor])
+  }
+}
+
+dynamicUI <- function(data_type){
+  
+  ui <-     
+    # Depending on input$input_type, we'll generate a different
+    # UI component and send it to the client.
+    switch(
+      data_type,
+      "slider" = sliderInput(
+        "dynamic",
+        "Dynamic",
+        min = 1,
+        max = 20,
+        value = 10
+      ),
+      "numeric" =  numericInput("dynamic", "Dynamic",
+                                value = 12),
+      "selectInput" = selectInput(
+        "dynamic",
+        "Dynamic",
+        choices = c("Option 1" = "option1",
+                    "Option 2" = "option2"),
+        selected = "option2"
+      ),
+      "date" = dateInput("dynamic", "Dynamic"),
+      "daterange" = dateRangeInput("dynamic", "Dynamic")
+    )
+  
+  ui
 }
 
 ##--------------------------------Model Prediction Ends-----------------------
