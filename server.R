@@ -248,7 +248,8 @@ function(input, output) {
       sidebarLayout(
         # Sidebar with a slider input
         sidebarPanel(
-          sliderControl("Sibsp", 0, 8, 4)
+          sliderControl("Sibsp", 0, 8, 4),
+          selectInputControl("Gender", c("male", "female"), "female")
         ),
         # Show a plot of the generated distribution
         mainPanel(
