@@ -120,6 +120,7 @@ logitFunc <- function(input){
 
 #Naive Bayes Model
 naiveBayesFunc <- function(input){
+  #set.seed(100)
   naiveBayes(modelFormula(input), data = getTrainingData(input))
 }
 
@@ -176,33 +177,29 @@ deriveInputDataVars <- function(input, predictor){
   }
 }
 
-dynamicUI <- function(data_type){
-  
+sliderControl <- function(controlName, minVal, maxVal, value){
+  ui <-     
+        sliderInput(
+          controlName,
+          controlName,
+          min = minVal,
+          max = maxVal,
+          value = value
+        )
+  ui
+}
+
+selectInputControl <- function(controlName, choices, selected){
   ui <-     
     # Depending on input$input_type, we'll generate a different
     # UI component and send it to the client.
-    switch(
-      data_type,
-      "slider" = sliderInput(
-        "dynamic",
-        "Dynamic",
-        min = 1,
-        max = 20,
-        value = 10
-      ),
-      "numeric" =  numericInput("dynamic", "Dynamic",
-                                value = 12),
-      "selectInput" = selectInput(
-        "dynamic",
-        "Dynamic",
-        choices = c("Option 1" = "option1",
-                    "Option 2" = "option2"),
-        selected = "option2"
-      ),
-      "date" = dateInput("dynamic", "Dynamic"),
-      "daterange" = dateRangeInput("dynamic", "Dynamic")
+    
+    "selectInput" = selectInput(
+      controlName,
+      controlName,
+      choices = choices,
+      selected = selected
     )
-  
   ui
 }
 
