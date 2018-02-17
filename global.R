@@ -177,12 +177,6 @@ deriveInputDataVars <- function(input, predictor){
   }
 }
 
-#This list will hold input controls for "Model Prediction" tab
-inputControlsTemp <- list()
-for (i in 1:2){
-  inputControlsTemp[[i]] <- sliderControl("Sibsp", 0, 8, 4)
-}
-
 sliderControl <- function(controlName, minVal, maxVal, value){
     
     sliderInput(
@@ -203,6 +197,12 @@ selectInputControl <- function(controlName, choices, selected){
       selected = selected
     )
   ui
+}
+
+#This list will hold input controls for "Model Prediction" tab
+inputControlsTemp <- list()
+for (i in 1:2){
+  inputControlsTemp[[i]] <- sliderControl("Sibsp", 0, 8, 4)
 }
 
 ##--------------------------------Model Prediction Ends-----------------------
