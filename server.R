@@ -241,7 +241,6 @@ function(input, output) {
   })
   #-----------------------------------------------------------------------------
   #Model Prediction Tab
-
   
   output$modelprediction <- renderUI({
     fluidPage(
@@ -250,10 +249,8 @@ function(input, output) {
       sidebarLayout(
         # Sidebar with a slider input
         sidebarPanel(
-          #inputControls,
-          inputControlsTemp,
+          deriveInputControls(input),
           #sliderControl("Sibsp", 0, 8, 4),
-          #selectInputControl("Gender", c("male", "female"), "female"),
           actionButton("actionPredict", label = "Predict Now ! ", class = "btn-primary")
         ),
         # Show a plot of the generated distribution
