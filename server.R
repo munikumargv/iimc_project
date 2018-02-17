@@ -241,10 +241,7 @@ function(input, output) {
   })
   #-----------------------------------------------------------------------------
   #Model Prediction Tab
-  functionVector <- list()
-  for (i in 1:2){
-    functionVector[[i]] <- sliderControl("Sibsp", 0, 8, 4)
-  }
+
   
   output$modelprediction <- renderUI({
     fluidPage(
@@ -253,7 +250,8 @@ function(input, output) {
       sidebarLayout(
         # Sidebar with a slider input
         sidebarPanel(
-          functionVector,
+          #inputControls,
+          inputControlsTemp,
           #sliderControl("Sibsp", 0, 8, 4),
           #selectInputControl("Gender", c("male", "female"), "female"),
           actionButton("actionPredict", label = "Predict Now ! ", class = "btn-primary")
