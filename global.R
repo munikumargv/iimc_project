@@ -197,6 +197,14 @@ deriveInputControls <- function(input){
     if(is.factor(inputDataVars[, predictorNames[i]])){
       inputControls[[i]] <- selectInputControl(predictorNames[i], levels(inputDataVars[, predictorNames[i]]))
     }
+    
+    if(is.numeric(inputDataVars[, predictorNames[i]])){
+      inputControls[[i]] <- sliderControl(predictorNames[i], 
+                                          min(inputDataVars[, predictorNames[i]]), 
+                                          max(inputDataVars[, predictorNames[i]]), 
+                                          mean(inputDataVars[, predictorNames[i]])
+                                          )
+    }
   }
   inputControls
 }
