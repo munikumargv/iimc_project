@@ -37,7 +37,7 @@ imputeMissingData <- function(inputData, input){
 
 #Step 3.1: Data Pre-Processing [Impute missing data: Mice]
 imputeMissingDataMice <- function(inputData, input){
-  print("Inside imputeMissingDataMice()")
+  #print("Inside imputeMissingDataMice()")
   predictors <- unlist((input$mychooser)[2])
   my.data <- inputData[, predictors]
   nums <- sapply(my.data, is.numeric)
@@ -58,11 +58,11 @@ imputeMissingDataMice <- function(inputData, input){
     mice_output <- complete(mice_mod)
     
     #Copy over data from data frame "mice_output" to data frame "inputData"
-    print(paste0("Missing Count - Before", sum(is.na(inputData[, numeric.predictors]))))
+    #print(paste0("Missing Count - Before", sum(is.na(inputData[, numeric.predictors]))))
     for (i in 1:length(numeric.predictors)){
       inputData[, numeric.predictors[i]] <- mice_output[, numeric.predictors[i]]
     }
-    print(paste0("Missing Count - After", sum(is.na(inputData[, numeric.predictors]))))
+    #print(paste0("Missing Count - After", sum(is.na(inputData[, numeric.predictors]))))
     
     inputData
   }
@@ -70,7 +70,7 @@ imputeMissingDataMice <- function(inputData, input){
 
 #Step 3.2: Data Pre-Processing [Impute missing data: Option 2]
 imputeMissingDataOption2 <- function(inputData, input){
-  print("Inside imputeMissingDataOption2()")
+  #print("Inside imputeMissingDataOption2()")
   inputData
   ##To be done
 }
@@ -167,16 +167,6 @@ predict.svm.fulldata <- function(input, outcome){
 ##--------------------------------Model Building Ends-------------------------
 
 ##--------------------------------Model Prediction Starts---------------------
-deriveInputDataVars <- function(input, predictor){
-  predictors <- unlist((input$mychooser)[2])
-  inputDataVars <- getTestData(input)[, predictors]
-  
-  #Return levels for factor
-  if (is.factor(inputDataVars[,predictor])){
-    levels(inputDataVars[,predictor])
-  }
-}
-
 sliderControl <- function(controlName, minVal, maxVal, value){
     
     sliderInput(
@@ -188,21 +178,27 @@ sliderControl <- function(controlName, minVal, maxVal, value){
     )
 }
 
-selectInputControl <- function(controlName, choices, selected){
-  ui <-     
-    selectInput(
-      controlName,
-      controlName,
-      choices = choices,
-      selected = selected
-    )
-  ui
+selectInputControl <- function(controlName, choices){
+  selectInput(
+    controlName,
+    controlName,
+    choices = choices
+  )
 }
 
 #This list will hold input controls for "Model Prediction" tab
-inputControlsTemp <- list()
-for (i in 1:2){
-  inputControlsTemp[[i]] <- sliderControl("Sibsp", 0, 8, 4)
+deriveInputControls <- function(input){
+  inputControls <- list()
+  inputDataVars <- getTestData(input)[, unlist((input$mychooser)[2])]
+  predictorNames <- names(inputDataVars)
+  
+  for (i in 1:length(predictorNames)){
+    #Return levels for factor
+    if(is.factor(inputDataVars[, predictorNames[i]])){
+      inputControls[[i]] <- selectInputControl(predictorNames[i], levels(inputDataVars[, predictorNames[i]]))
+    }
+  }
+  inputControls
 }
 
 ##--------------------------------Model Prediction Ends-----------------------
