@@ -256,7 +256,7 @@ function(input, output) {
           functionVector,
           #sliderControl("Sibsp", 0, 8, 4),
           #selectInputControl("Gender", c("male", "female"), "female"),
-          actionButton("actionPredict", label = paste0("Predict Now ! ",length(functionVector)), class = "btn-primary")
+          actionButton("actionPredict", label = "Predict Now ! ", class = "btn-primary")
         ),
         # Show a plot of the generated distribution
         mainPanel(
