@@ -178,15 +178,14 @@ deriveInputDataVars <- function(input, predictor){
 }
 
 sliderControl <- function(controlName, minVal, maxVal, value){
-  ui <-     
-        sliderInput(
-          controlName,
-          controlName,
-          min = minVal,
-          max = maxVal,
-          value = value
-        )
-  ui
+    
+    sliderInput(
+      controlName,
+      controlName,
+      min = minVal,
+      max = maxVal,
+      value = value
+    )
 }
 
 selectInputControl <- function(controlName, choices, selected){
