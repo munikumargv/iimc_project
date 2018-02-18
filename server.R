@@ -254,13 +254,32 @@ function(input, output) {
         ),
         # Show a plot of the generated distribution
         mainPanel(
-          plotOutput("distPlot")
+          #plotOutput("distPlot")
+          tableOutput("predictedValuesTable")
         )
       )
     )
   })
   
   #Sample Code, Take it out!
+  
+  predicted.values.table <- eventReactive(input$actionPredict,{
+    inputDataVars <- getTestData(input)[1, unlist((input$mychooser)[2])]
+    
+    logit.predicted.value <- predict.single.value(logitFunc(input), inputDataVars)
+    naivebayes.predicted.value <- predict.single.value(naiveBayesFunc(input), inputDataVars)
+    nnet.predicted.value <- predict.single.value(nnetFunc(input), inputDataVars)
+    svm.predicted.value <- predict.single.value(svmFunc(input), inputDataVars)
+    
+    Model <- c("Logistic", "NaiveBayes", "NeuralNet", "SVM")
+    PredictedValue <- c(logit.predicted.value, naivebayes.predicted.value, nnet.predicted.value, svm.predicted.value)
+    data.frame(Model, PredictedValue)
+  })
+  
+  output$predictedValuesTable <- renderTable({
+    predicted.values.table()
+  })
+  
   myPlot <- eventReactive(input$actionPredict,{
     hist(rnorm(input$Sibsp))
   })
