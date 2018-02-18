@@ -20,6 +20,10 @@ convertToFactors <- function(inputData, input){
   
   #Convert all data frame character columns to factors. [Is this right thing to do?]
   inputData[sapply(inputData, is.character)] <- lapply(inputData[sapply(inputData, is.character)], as.factor)  
+  
+  #Convert all data frame "integer" columns to factors. [Is this right thing to do?]
+  inputData[sapply(inputData, is.integer)] <- lapply(inputData[sapply(inputData, is.integer)], as.factor)
+  
   inputData
 }
 
@@ -78,8 +82,8 @@ imputeMissingDataOption2 <- function(inputData, input){
 
 #Step 4: Data Pre-Processing [Top Level Function]
 preProcessData <- function(inputData, input){
-  processedData.1 <- convertToFactors(inputData, input)
-  processedData.2 <- imputeMissingData(processedData.1, input)
+  processedData.1 <- imputeMissingData(inputData, input)
+  processedData.2 <- convertToFactors(processedData.1, input)
   processedData.2
 }
 
