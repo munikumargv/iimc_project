@@ -196,6 +196,17 @@ selectInputControl <- function(controlName, choices){
   )
 }
 
+constructInputDataFrame <- function(input){
+  inputDataVars <- getTestData(input)[0, unlist((input$mychooser)[2])]
+  predictorNames <- names(inputDataVars)
+  
+  for (i in 1:length(predictorNames)){
+    inputDataVars[1, predictorNames[i]] <- input[[predictorNames[i]]]
+  }
+  print(inputDataVars)
+  inputDataVars
+}
+
 #This list will hold input controls for "Model Prediction" tab
 deriveInputControls <- function(input){
   inputControls <- list()
