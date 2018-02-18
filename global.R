@@ -168,6 +168,12 @@ predict.svm.fulldata <- function(input, outcome){
   #svm.predicted.fulldata <- ifelse(svm.predicted.fulldata < 0.7, 0, 1)
   table(svm.predicted.fulldata, test.data[,outcome], dnn = c("Predicted", "Actual"))
 }
+
+#Predict Single Value
+predict.single.value <- function(model, inputData) {
+  predict(model, inputData)
+}
+
 ##--------------------------------Model Building Ends-------------------------
 
 ##--------------------------------Model Prediction Starts---------------------
