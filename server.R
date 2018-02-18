@@ -251,7 +251,7 @@ function(input, output) {
           deriveInputControls(input),
           actionButton("actionPredict", label = "Predict Now ! ", class = "btn-primary")
         ),
-        # Show a plot of the generated distribution
+        # Show a table of the predicted values
         mainPanel(
           tableOutput("predictedValuesTable")
         )
