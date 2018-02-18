@@ -261,12 +261,12 @@ function(input, output) {
   
   #Create table of predicted values for 4 models
   predicted.values.table <- eventReactive(input$actionPredict,{
-    inputDataVars <- getTestData(input)[1, unlist((input$mychooser)[2])]
+    inputDataFrame <- constructInputDataFrame(input)
     
-    logit.predicted.value <- predict.single.value(logitFunc(input), inputDataVars)
-    naivebayes.predicted.value <- predict.single.value(naiveBayesFunc(input), inputDataVars)
-    nnet.predicted.value <- predict.single.value(nnetFunc(input), inputDataVars)
-    svm.predicted.value <- predict.single.value(svmFunc(input), inputDataVars)
+    logit.predicted.value <- predict.single.value(logitFunc(input), inputDataFrame)
+    naivebayes.predicted.value <- predict.single.value(naiveBayesFunc(input), inputDataFrame)
+    nnet.predicted.value <- predict.single.value(nnetFunc(input), inputDataFrame)
+    svm.predicted.value <- predict.single.value(svmFunc(input), inputDataFrame)
     
     Model <- c("Logistic", "NaiveBayes", "NeuralNet", "SVM")
     PredictedValue <- c(logit.predicted.value, naivebayes.predicted.value, nnet.predicted.value, svm.predicted.value)
