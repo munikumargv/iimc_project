@@ -241,7 +241,6 @@ function(input, output) {
   })
   #-----------------------------------------------------------------------------
   #Model Prediction Tab
-  
   output$modelprediction <- renderUI({
     fluidPage(
       # Application title
@@ -254,15 +253,13 @@ function(input, output) {
         ),
         # Show a plot of the generated distribution
         mainPanel(
-          #plotOutput("distPlot")
           tableOutput("predictedValuesTable")
         )
       )
     )
   })
   
-  #Sample Code, Take it out!
-  
+  #Create table of predicted values for 4 models
   predicted.values.table <- eventReactive(input$actionPredict,{
     inputDataVars <- getTestData(input)[1, unlist((input$mychooser)[2])]
     
@@ -278,14 +275,6 @@ function(input, output) {
   
   output$predictedValuesTable <- renderTable({
     predicted.values.table()
-  })
-  
-  myPlot <- eventReactive(input$actionPredict,{
-    hist(rnorm(input$Sibsp))
-  })
-    
-  output$distPlot <- renderPlot({
-    plot(myPlot())
   })
   #-----------------------------------------------------------------------------
 }
