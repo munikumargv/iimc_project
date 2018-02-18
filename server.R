@@ -250,7 +250,6 @@ function(input, output) {
         # Sidebar with a slider input
         sidebarPanel(
           deriveInputControls(input),
-          #sliderControl("Sibsp", 0, 8, 4),
           actionButton("actionPredict", label = "Predict Now ! ", class = "btn-primary")
         ),
         # Show a plot of the generated distribution
