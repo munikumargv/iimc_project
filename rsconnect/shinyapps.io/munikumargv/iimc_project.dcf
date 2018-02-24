@@ -1,0 +1,12 @@
+name: iimc_project
+title: iimc_project
+username:
+account: munikumargv
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 287407
+bundleId: 1236451
+url: https://munikumargv.shinyapps.io/iimc_project/
+when: 1519380871.86982
+asMultiple: FALSE
+asStatic: FALSE
